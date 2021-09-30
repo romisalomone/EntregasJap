@@ -1,5 +1,7 @@
 var productos = {};
 var coments = {};
+var autito1 = {};
+var autito2 = {};
 
 function showImagesGallery(array) {
 
@@ -39,6 +41,22 @@ function mostrarComentarios(parametro) {
     }
     document.getElementById("comentarios").innerHTML = resenias;
 }
+function showOpcionproducto(producto1, producto2) {
+    let opcion = "";
+    for (let i = 0; i < producto2.length; i++) {
+        let optionsSrc = producto1[producto2[i]];
+        opcion += `<div class="card" style="width: 18rem;">
+        <img src="` + optionsSrc.imgSrc + `" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">`+ optionsSrc.name + `</h5>
+          <p class="card-text">`+ optionsSrc.description + `</p>
+          <a href="#" class="btn btn-primary">Ingrese Aquí</a>
+        </div>
+      </div>
+      `
+    }
+    document.getElementById("autito").innerHTML = opcion;
+}
 
 
 
@@ -70,6 +88,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 mostrarComentarios(coments);
             }
 
+        });
+        getJSONData(PRODUCTS_URL).then(function (result) {
+            if (result.status === "ok") {
+                autito1 = result.data;
+                autito2 = productos.relatedProducts;
+                showOpcionproducto(autito1, autito2);
+            }
         });
     });
 });
